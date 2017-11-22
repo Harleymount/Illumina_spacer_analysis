@@ -51,25 +51,25 @@ gmap_build -d pLENS.genome $reference
 
 ls | grep -E '\.fastq$' | parallel -j 0 'gmap -d pLENS.genome -A {} -f samse > {}.sam';
 
-rm *.fastq;
+find . -name '*.fastq' -print0 | xargs -0 rm;
 
-ls | grep -E '\.sam$' | parallel 'Picard SamFormatConverter I={} O={}.bam';
-rm *.sam;
-
-
-ls | grep -E '\.bam$' | parallel 'Picard AddOrReplaceReadGroups I={} O={}_sorted.bam SORT_ORDER=coordinate RGLB=NA RGPL=Nanopore RGPU=NA RGSM=NA';
-rm *.sam.bam;
+ls | grep -E '\.sam$' | parallel -j 0 'Picard SamFormatConverter I={} O={}.bam';
+find . -name '*.sam' -print0 | xargs -0 rm;
 
 
+ls | grep -E '\.bam$' | parallel -j 0 'Picard AddOrReplaceReadGroups I={} O={}_sorted.bam SORT_ORDER=coordinate RGLB=NA RGPL=Nanopore RGPU=NA RGSM=NA';
+find . -name '*.sam.bam' -print0 | xargs -0 rm;
 
-ls | grep -E '\_sorted.bam$' | parallel 'bedtools genomecov -d -split -ibam {} > {}.tdt';
-rm *_sorted.bam;
+
+
+ls | grep -E '\_sorted.bam$' | parallel -j 0 'bedtools genomecov -d -split -ibam {} > {}.tdt';
+find . -name '*_sorted.bam' -print0 | xargs -0 rm;
 
 
 #now run my average coverage python script 
 python average_coverage.py $dir
 
-rm *.tdt
+find . -name '*.tdt' -print0 | xargs -0 rm;
 
 Rscript merge_csv_illumina.R $dir/split_files
 
