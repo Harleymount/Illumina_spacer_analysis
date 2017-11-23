@@ -26,7 +26,7 @@ while region != '':
 
 def average_coverage():
     for filename in os.listdir(os.getcwd())[:]:
-        if str(filename)!= '.DS_Store' and str(filename) !='flankspacers.bed' and str(filename) !='average_coverage.py' and str(filename) !='merge_csv_illumina.R' and str(filename) !='analyze_reads.py'and str(filename) !='.Rhistory' and str(filename) !='plot_crossovers.R'and str(filename) !='plot_losses.R':
+        if str(filename)!= '.DS_Store' and str(filename) !='flankspacers.bed' and str(filename) !='average_coverage.py' and str(filename) !='merge_csv_illumina.R' and str(filename) !='analyze_reads.py'and str(filename) !='.Rhistory' and str(filename) !='plot_crossovers.R'and str(filename) !='plot_losses.R' and str(filename) !='heatmap_matrix_maker.R':
             coverage_file=open(filename, 'r')
             line=coverage_file.readline()
             cov_dict={}
