@@ -11,6 +11,8 @@ provided_input=sys.argv[1:]
 matrix_file_path=provided_input[0]
 matrix_file=open(matrix_file_path,'r')
 
+#matrix_file=open('matrix_output_transpose.csv','r')
+
 line=matrix_file.readline().strip()
 line=matrix_file.readline().strip()
 read_name=line.split(',')[0]
@@ -51,9 +53,11 @@ discontinuous=[]
 for item in read_info_list:
     if item[1]==0:
         full_length+=1
+        discontinuous.append((item[0], item[1]))# decided to add things that have no losses to the output histogram for crossovers as well because alex wanted it
     elif item[1] == 1:
         continuous.append((item[0],item[2][0]))
-    elif item[1] >= 2:
+        discontinuous.append((item[0], item[1])) # decided to add things that have single losses to the output histogram for crossovers as well because alex wanted it
+    elif item[1] >= 1:
         discontinuous.append((item[0], item[1]))
 
 
@@ -61,7 +65,30 @@ continuous_output=[]
 for item in continuous:
     continuous_output.append((item[0],item[1][0]))
     
-
+zero=0
+one=0
+two=0
+three=0
+four=0
+five=0
+six=0
+for i in discontinuous:
+    if i[1]==0:
+        zero+=1
+    elif i[1]==1:
+        one +=1
+    elif i[1] == 2: 
+        two +=1
+    elif i[1] == 3: 
+        three +=1
+    elif i[1] == 4:
+        four +=1
+    elif i[1] == 5:
+        five +=1
+    elif i[1]==6:
+        six+=1
+        
+total=len(discontinuous)
 
 output_file=open('output_report.txt', 'w')
 
@@ -70,6 +97,9 @@ output_file.writelines('Full Length Reads Detected:' + str(full_length) + '\n')
 output_file.writelines('Continuous Losses Detected (read name, length) : \n')
 for item in continuous_output:
     output_file.writelines(item[0] + '          '+str(item[1]) + '\n')
+output_file.writelines('==============================Crossover summary==================================================\n')
+output_file.writelines('\nCrossover totals 0=' + str(zero) + '(' +str((zero/total)*100) +')'+ '\nCrossover totals 1=' + str(one) + '(' +str((one/total)*100) +')'+  '\nCrossover totals 2=' + str(two)+ '(' +str((two/total)*100) +')'+ '\nCrossover totals 3='+str(three)+ '(' +str((three/total)*100) +')'+ '\nCrossover totals 4=' + str(four) + '(' +str((four/total)*100) +')'+  '\nCrossover totals 5=' + str(five)+ '(' +str((five/total)*100) +')'+  '\nCrossover totals 6='+str(six)+ '(' +str((six/total)*100) +') \n')
+output_file.writelines('========================================================================================\n')
 output_file.writelines('Discontinuous Losses Detected (read name, # of Crossovers) : \n')
 for item in discontinuous:
     output_file.writelines(item[0] + '          '+str(item[1])+'\n')
