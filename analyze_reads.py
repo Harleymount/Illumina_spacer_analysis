@@ -92,7 +92,7 @@ total=len(discontinuous)
 
 output_file=open('output_report.txt', 'w')
 
-output_file.writelines("Nanopore Spacer Loss Analysis Version 1.0 \n")
+output_file.writelines("Illumina Spacer Loss Analysis Version 1.0 \n")
 output_file.writelines('Full Length Reads Detected:' + str(full_length) + '\n')
 output_file.writelines('Continuous Losses Detected (read name, length) : \n')
 for item in continuous_output:
