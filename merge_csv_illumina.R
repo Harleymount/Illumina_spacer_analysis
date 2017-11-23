@@ -11,9 +11,9 @@ files<-head(files, -1)
 
 #====================================================================
 #FOR DEBUGGING
-dir<-'/Users/Harley/Desktop/test_illumina/split_files'
-files <- list.files(path=dir, pattern="*.csv", full.names=T, recursive=FALSE)
-files<-tail(files, -1)
+#dir<-'/Users/Harley/Desktop/test_illumina/split_files'
+#files <- list.files(path=dir, pattern="*.csv", full.names=T, recursive=FALSE)
+#files<-tail(files, -1)
 #====================================================================
 
 #====================================================================
