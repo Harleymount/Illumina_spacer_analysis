@@ -71,6 +71,9 @@ python average_coverage.py $dir
 
 find . -name '*.tdt' -print0 | xargs -0 rm;
 
+#added to remove empty files that will throw errors in processing with R. 
+find . -size 0 -delete
+
 Rscript merge_csv_illumina.R $dir/split_files
 
 
