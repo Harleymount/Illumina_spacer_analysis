@@ -29,7 +29,7 @@ while region != '':
 
 def average_coverage(filename):
     #for filename in os.listdir(os.getcwd())[:]:  # will comment this out, to try not looping over every file, will also change the function to take a thing called filename
-        if str(filename)!= '.DS_Store' and str(filename) !='flankspacers.bed' and str(filename) !='average_coverage.py' and str(filename) !='merge_csv.R' and str(filename) !='analyze_reads.py'and str(filename) !='.Rhistory' and str(filename) !='plot_crossovers.R'and str(filename) !='plot_losses.R' and str(filename) !='heatmap_matrix_maker.R':
+        if str(filename)!= '.DS_Store' and str(filename) !='flankspacers.bed' and str(filename) !='average_coverage.py' and str(filename) !='merge_csv_illumina.R' and str(filename) !='analyze_reads.py'and str(filename) !='.Rhistory' and str(filename) !='plot_crossovers.R'and str(filename) !='plot_losses.R' and str(filename) !='heatmap_matrix_maker.R':
             coverage_file=open(filename, 'r')
             line=coverage_file.readline()
             cov_dict={}
@@ -65,3 +65,4 @@ for f in glob.glob("*.tdt"):
     p.apply_async(average_coverage, [f]) 
 
 p.close()
+p.join()
